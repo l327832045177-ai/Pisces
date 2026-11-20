@@ -4,7 +4,8 @@
 }
 
 .canvas {
-  --home-whale-code-ink: var(--dsw-alias-label-primary);
+  /* Ocean palette: the reef dots and the lettering share one light-blue ink. */
+  --home-whale-code-ink: #38bdf8;
   /* The host isolates stacking at the Conversation root, so -1 lands above its background and below its content. */
   position: absolute;
   inset: 0;
@@ -13,8 +14,8 @@
   height: 100%;
   display: block;
   pointer-events: none;
-  opacity: 0.18;
-  color: var(--dsw-alias-label-secondary);
-  filter: grayscale(1);
+  opacity: 0.5;
+  color: #67d4f5;
+  filter: none;
   font-family: var(--ds-font-family-code);
 }

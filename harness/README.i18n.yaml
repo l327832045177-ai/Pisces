@@ -1,0 +1,13 @@
+# Bilingual-pair consistency record for README.md (docs/i18n/README.md): per heading
+# section, a hash of its English and Chinese blocks outside code blocks and generated regions.
+# After editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write harness/README.md
+/pisces-marine-ecology-harness:
+  en: 484378efbbcb4a60
+  zh: 35b74837fc6c67d0
+/pisces-marine-ecology-harness/start-the-shell:
+  en: 48634f6585824045
+  zh: 3863deb142b0b93f
+/pisces-marine-ecology-harness/plugins-and-runtime-data:
+  en: 0bcdd22659e5bf01
+  zh: 134eee6c47ba233b

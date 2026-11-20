@@ -1,0 +1,7 @@
+/home/*
+!/home/profiles/
+/home/profiles/*
+!/home/profiles/marine-ecology/
+/home/profiles/marine-ecology/*
+!/home/profiles/marine-ecology/package.json
+!/home/profiles/marine-ecology/cordis.patch.yml

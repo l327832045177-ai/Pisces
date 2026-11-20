@@ -1,8 +1,8 @@
 /** Home frame layer: a decorative canvas below the Conversation content, played by clicks on blank home space. */
 import { useCallback, useRef, type MouseEvent, type ReactNode } from 'react'
 import type { HeroFrameOwnerProps } from '@deepseek-ai/dsh-client-ui-conversation/client'
-import atlasUrl from '../assets/breach-atlas.webp'
-import { WHALE_ARTWORK } from './artwork.ts'
+import atlasUrl from '../assets/reef-atlas.webp'
+import { REEF_ARTWORK } from './artwork.ts'
 import { attachPixelWhale, type PixelWhaleHandle } from './renderer.ts'
 import css from './PixelWhale.module.css'
 
@@ -31,7 +31,7 @@ function isBlankClick(event: MouseEvent<HTMLDivElement>): boolean {
 }
 
 /**
- * Wrap the Conversation scroll body; while the home is shown, paint the whale canvas below the Conversation content.
+ * Wrap the Conversation scroll body; while the home is shown, paint the reef canvas below the Conversation content.
  * @param props - the home state and the wrapped scroll body.
  * @returns a layout-neutral frame around the children.
  */
@@ -39,7 +39,7 @@ export function PixelWhale({ hero, children }: PixelWhaleProps) {
   const whale = useRef<PixelWhaleHandle | undefined>(undefined)
   const canvasRef = useCallback((canvas: HTMLCanvasElement | null) => {
     whale.current?.dispose()
-    whale.current = canvas === null ? undefined : attachPixelWhale(canvas, WHALE_ARTWORK, atlasUrl)
+    whale.current = canvas === null ? undefined : attachPixelWhale(canvas, REEF_ARTWORK, atlasUrl)
   }, [])
   const onClick = (event: MouseEvent<HTMLDivElement>): void => {
     if (whale.current !== undefined && isBlankClick(event)) whale.current.play()

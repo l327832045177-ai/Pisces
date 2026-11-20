@@ -1,7 +1,7 @@
-/** Fixed artwork choices for the official home whale. */
+/** Fixed artwork choices for the home reef decoration. */
 
 /** Visual parameters shared by the dot and code fills. */
-export interface WhaleArtwork {
+export interface ReefArtwork {
   /** Maximum fill opacity, multiplied by each frame's water and highlight attenuation. */
   activeOpacity: number
   /** Word size in CSS pixels. */
@@ -14,16 +14,14 @@ export interface WhaleArtwork {
   rippleDurationMs: number
 }
 
-/** The official artwork; these values are part of the design, not deployment settings. */
-export const WHALE_ARTWORK: WhaleArtwork = {
-  activeOpacity: 0.65,
+/** The Pisces artwork: ecology and supervision vocabulary, not implementation code. */
+export const REEF_ARTWORK: ReefArtwork = {
+  activeOpacity: 0.62,
   fontSize: 7,
   phrases: [
-    '// Everything is a plugin', 'ctx.plugin(Agent)', 'await agent.run()',
-    'ctx.on("turn/end", next)', 'const tools = ctx.tools', 'await session.append(event)',
-    'return next()', 'ctx.effect(() => dispose)', 'const { skills } = ctx',
-    'yield tool.result', 'type Context = Harness', 'MCP.connect()',
-    'useSession()', 'const workspace = cwd', 'await runtime.start()', '// Creator Mode',
+    '水质监测', '生态修复', '岸线整治', '湿地恢复', '生物多样性', '生态流量',
+    '监管台账', '修复评估', '河道治理', '面源污染', '生态红线', '监测预警',
+    '修复率', '生态本底', '岸带植被', '栖息地',
   ],
   frameRate: 24,
   rippleDurationMs: 5700,

@@ -2,7 +2,7 @@
 import { cleanup, fireEvent, render } from '@testing-library/react'
 import { createPortal } from 'react-dom'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { WHALE_ARTWORK } from '../src/client/home-whale/artwork.ts'
+import { REEF_ARTWORK } from '../src/client/home-whale/artwork.ts'
 import { PixelWhale } from '../src/client/home-whale/PixelWhale.tsx'
 import { attachPixelWhale } from '../src/client/home-whale/renderer.ts'
 
@@ -30,7 +30,7 @@ describe('pixel whale frame layer', () => {
     const canvas = view.container.querySelector('canvas')
     expect(canvas?.getAttribute('aria-hidden')).toBe('true')
     expect(canvas?.nextElementSibling?.textContent).toBe('content')
-    expect(attach).toHaveBeenCalledExactlyOnceWith(canvas, WHALE_ARTWORK, expect.stringContaining('breach-atlas'))
+    expect(attach).toHaveBeenCalledExactlyOnceWith(canvas, REEF_ARTWORK, expect.stringContaining('reef-atlas'))
     view.rerender(<PixelWhale hero><p>updated</p></PixelWhale>)
     expect(attach).toHaveBeenCalledOnce()
     view.unmount()

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { WHALE_ARTWORK, type WhaleArtwork } from '../src/client/home-whale/artwork.ts'
+import { REEF_ARTWORK, type ReefArtwork } from '../src/client/home-whale/artwork.ts'
 import { attachPixelWhale } from '../src/client/home-whale/renderer.ts'
 
 const releases: (() => void)[] = []
@@ -13,7 +13,7 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-function scene(options: WhaleArtwork = WHALE_ARTWORK, missingContext = -1) {
+function scene(options: ReefArtwork = REEF_ARTWORK, missingContext = -1) {
   let now = 0
   let nextFrame = 1
   const frames = new Map<number, FrameRequestCallback>()
@@ -143,7 +143,7 @@ describe('official home pixel whale', () => {
   })
 
   it('fills the code whale only with authored snippets', () => {
-    const options = { ...WHALE_ARTWORK, phrases: ['ctx.effect(() => dispose)', 'await agent.run()'] }
+    const options = { ...REEF_ARTWORK, phrases: ['ctx.effect(() => dispose)', 'await agent.run()'] }
     const s = scene(options)
     for (let y = 15; y < 80; y++) {
       for (let x = 20; x < 165; x++) s.pixels[((3 * 108 + y) * 2304 + x) * 4 + 1] = 180
@@ -262,7 +262,7 @@ describe('official home pixel whale', () => {
 
   it('stops decoration when the code fill cannot allocate its canvases', () => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    const s = scene(WHALE_ARTWORK, 2)
+    const s = scene(REEF_ARTWORK, 2)
     s.click(); s.load(); s.step(5800)
     s.click(); s.step(7300)
     expect(warning).toHaveBeenCalledOnce()
@@ -287,7 +287,7 @@ describe('official home pixel whale', () => {
   })
 
   it('leaves home usable without Canvas through an inert handle', () => {
-    const s = scene(WHALE_ARTWORK, 0)
+    const s = scene(REEF_ARTWORK, 0)
     s.click()
     s.dispose()
     expect(s.frames.size).toBe(0)
@@ -297,7 +297,7 @@ describe('official home pixel whale', () => {
 
   it.each(['decode', 'geometry', 'context', 'pixels'] as const)('contains %s failure and does not retry until remount', (failure) => {
     const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    const s = scene(WHALE_ARTWORK, failure === 'context' ? 1 : -1)
+    const s = scene(REEF_ARTWORK, failure === 'context' ? 1 : -1)
     s.click()
     if (failure === 'decode') s.image.dispatchEvent(new Event('error'))
     else {

@@ -1,5 +1,5 @@
 /** Cached code lettering clipped by the same frames that drive the dotted whale. */
-import type { WhaleArtwork } from './artwork.ts'
+import type { ReefArtwork } from './artwork.ts'
 
 interface CodeFill {
   resize(canvas: HTMLCanvasElement, width: number): void
@@ -15,7 +15,7 @@ interface CodeFill {
  * @returns a drawing cache, or undefined when Canvas 2D is unavailable.
  */
 export function createCodeFill(
-  options: WhaleArtwork, atlas: { width: number; height: number; columns: number; frames: number },
+  options: ReefArtwork, atlas: { width: number; height: number; columns: number; frames: number },
 ): CodeFill | undefined {
   const lettering = document.createElement('canvas')
   const mask = document.createElement('canvas')

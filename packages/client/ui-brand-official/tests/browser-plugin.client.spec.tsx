@@ -46,12 +46,12 @@ describe('official browser-brand plugin', () => {
     expect(inject).toEqual(['slots'])
   })
 
-  it('keeps local sidebar branding and provides the same blank-home feedback', async () => {
+  it('shows the Pisces sidebar branding and blank-home frame in local builds', async () => {
     vi.stubEnv('DSH_CLIENT_BUILD_PROFILE', 'local')
     const subject = await bench()
     await subject.ctx.plugin({ inject: [...inject], apply }).await()
-    expect(subject.slots.entries('sidebar.brand.mark')).toHaveLength(0)
-    expect(subject.slots.entries('sidebar.brand.name')).toHaveLength(0)
+    expect(subject.slots.entries('sidebar.brand.mark')).toHaveLength(1)
+    expect(subject.slots.entries('sidebar.brand.name')).toHaveLength(1)
     expect(subject.slots.entries('conversation.hero.frame')).toHaveLength(1)
   })
 
@@ -86,14 +86,14 @@ describe('official browser-brand plugin', () => {
     expect(subject.slots.entries(HERO_HOLE)).toHaveLength(0)
   })
 
-  it('registers the whale as a self-contained frame layer without replacing the hero mark', async () => {
+  it('registers the reef as a self-contained frame layer without replacing the hero mark', async () => {
     vi.stubEnv('DSH_CLIENT_BUILD_PROFILE', 'official')
     const subject = await bench()
     const fiber = subject.ctx.plugin({ inject: [...inject], apply })
     try {
       await fiber.await()
       const [entry] = subject.slots.entries('conversation.hero.frame')
-      expect(entry?.options.id).toBe('pixel-whale')
+      expect(entry?.options.id).toBe('pixel-reef')
       expect(entry?.inject).toBeUndefined()
       expect(subject.slots.entries(HERO_HOLE)).toHaveLength(0)
     } finally {
@@ -101,9 +101,9 @@ describe('official browser-brand plugin', () => {
     }
   })
 
-  it('renders the official name independently from both requested mark sizes', () => {
+  it('renders the Pisces name independently from both requested mark sizes', () => {
     const name = render(<OfficialBrandName />)
-    expect(name.container.querySelector('svg')?.getAttribute('viewBox')).toBe('26 0 156 24')
+    expect(name.container.textContent).toBe('Pisces')
     name.unmount()
 
     const mark = render(<OfficialBrandMark size={34} />)

@@ -1,5 +1,5 @@
 /** Alternating dot and code breaches sharing one bundled animation atlas. */
-import type { WhaleArtwork } from './artwork.ts'
+import type { ReefArtwork } from './artwork.ts'
 import { createCodeFill } from './code-fill.ts'
 
 // Geometry of assets/breach-atlas.webp: 137 frames at 192 × 108 cells, in twelve columns.
@@ -24,7 +24,7 @@ const NO_WHALE: PixelWhaleHandle = { play: () => {}, dispose: () => {} }
  * @param atlasUrl - URL of the packaged frame atlas, loaded once on the first eligible playback.
  * @returns the playback trigger and its teardown.
  */
-export function attachPixelWhale(canvas: HTMLCanvasElement, options: WhaleArtwork, atlasUrl: string): PixelWhaleHandle {
+export function attachPixelWhale(canvas: HTMLCanvasElement, options: ReefArtwork, atlasUrl: string): PixelWhaleHandle {
   const context = canvas.getContext('2d')
   if (context === null) return NO_WHALE
   const ctx = context

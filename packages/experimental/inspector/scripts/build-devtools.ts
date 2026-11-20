@@ -9,6 +9,28 @@ import { DEVTOOLS_NPM_VERSION, DEVTOOLS_SOURCE_REVISION } from './devtools/sourc
 let pending: Promise<{ files: number; bytes: number }> | undefined
 
 /**
+ * Publish a freshly written directory over its previous copy.
+ *
+ * Windows reports EPERM or EBUSY for the directory rename while antivirus or the search indexer
+ * still holds handles on the thousands of files just written, so retry with a short backoff
+ * instead of failing the whole build.
+ * @param from - staged directory.
+ * @param to - published directory, already removed.
+ */
+async function renamePublished(from: string, to: string): Promise<void> {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      await rename(from, to)
+      return
+    } catch (error) {
+      const code = (error as NodeJS.ErrnoException).code
+      if (attempt >= 8 || code === undefined || !['EPERM', 'EBUSY', 'EACCES'].includes(code)) throw error
+      await new Promise(resolve => setTimeout(resolve, 250 * attempt))
+    }
+  }
+}
+
+/**
  * Build lib/devtools without network access, retaining relative Worker and asset URLs.
  * @returns Published file count and bytes, excluding the distribution manifest.
  */
@@ -43,7 +65,7 @@ async function compile(): Promise<{ files: number; bytes: number }> {
     }, null, 2)}\n`)
     const output = join(lib, 'devtools')
     await rm(output, { recursive: true, force: true })
-    await rename(temporary, output)
+    await renamePublished(temporary, output)
     console.log(`DevTools npm ${DEVTOOLS_NPM_VERSION}: ${files.length} files, ${bytes} bytes`)
     return { files: files.length, bytes }
   } finally {

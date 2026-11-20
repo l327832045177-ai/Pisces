@@ -509,3 +509,40 @@ html[data-platform='darwin'] body[data-ds-dark-theme] {
   --dsw-specific-sidebar-wash-bottom: rgb(143 137 184 / 0.07);
   --dsw-specific-sidebar-wash-top: rgb(122 155 240 / 0.08);
 }
+
+/* Pisces ocean backdrop: a translucent water tint over whichever theme is active.
+   It stays a background layer so every surface above it keeps its own tokens. */
+html {
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, #38bdf8 22%, transparent) 0%, transparent 62%),
+    radial-gradient(90% 60% at 90% 110%, color-mix(in srgb, #22d3ee 16%, transparent) 0%, transparent 70%);
+  background-attachment: fixed;
+}
+/* Pisces ocean palette: deep water for the dark theme, pale aqua for the light one.
+   Only surfaces, interaction tints and the accent family are remapped; text and
+   semantic state tokens keep their own contrast rules. */
+body[data-ds-dark-theme] {
+  --dsw-alias-bg-base: #061a2b;
+  --dsw-alias-bg-overlay: #0b2c45;
+  --dsw-alias-bg-module-platform: #0d3350;
+  --dsw-alias-interactive-bg-hover: rgba(56, 189, 248, 0.10);
+  --dsw-alias-interactive-bg-active: rgba(56, 189, 248, 0.16);
+  --dsw-alias-interactive-bg-hover-accent: rgba(56, 189, 248, 0.22);
+  --dsw-alias-interactive-bg-hover-solid: #123a58;
+  --dsw-alias-border-selected: #38bdf8;
+  --dsw-alias-link: #7dd3fc;
+  --dsw-alias-state-business-primary: #38bdf8;
+  --dsw-alias-trajectory-accent: #38bdf8;
+  --dsw-specific-bubble: #0b2c45;
+  --dsw-specific-bubble-highlight: #164a6d;
+}
+
+body:not([data-ds-dark-theme]) {
+  --dsw-alias-bg-base: #eff9ff;
+  --dsw-alias-bg-overlay: #ffffff;
+  --dsw-alias-interactive-bg-hover: rgba(14, 165, 233, 0.08);
+  --dsw-alias-interactive-bg-active: rgba(14, 165, 233, 0.14);
+  --dsw-alias-border-selected: #0ea5e9;
+  --dsw-alias-link: #0284c7;
+  --dsw-alias-state-business-primary: #0ea5e9;
+}
